@@ -25,6 +25,11 @@ class Producto
         void setDisponibilidad(bool nDisponibilidad);
         void setSKU(string nSKU);
 
+        //otros
+        void addCantidad(int nCantidad);
+        bool checkDisponibilidad(int nCantidad);
+        void subCantidad(int nCantidad);
+
     private:
         string nombre;
         Categoria categoria;
@@ -117,4 +122,35 @@ void Producto::setDisponibilidad(bool nDisponibilidad)
 void Producto::setSKU(string nSKU)
 {
     SKU = nSKU;
+}
+
+//otros
+void Producto::addCantidad(int nCantidad)
+{
+    cantidad += nCantidad;
+}
+
+bool Producto::checkDisponibilidad(int nCantidad)
+{
+    if (nCantidad <= cantidad)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void Producto::subCantidad(int nCantidad)
+{
+    if(checkDisponibilidad(nCantidad) == true)
+    {
+        cantidad -= nCantidad;
+    }
+    else
+    {
+       cout << "El numero excede cantidad disponible. Solo hay" << cantidad << " disponbile." << endl; 
+    }
+    
 }
