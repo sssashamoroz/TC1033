@@ -8,8 +8,9 @@ using namespace std;
 void cargaProductos(Producto productosARR[], int &productCount);
 void muestraProductos(Producto productosARR[], int productCount);
 void restock(Producto productosARR[], int productCount);
-void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount);
+void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, int &orderCount);
 int buscaProducto(Producto productosARR, int productCount);
+void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount, int orderCount);
 
 int main(void)
 {
@@ -17,6 +18,7 @@ int main(void)
     Producto productoARR[20];
     Orden ordenARR[20];
     int cantidadProductos;
+    int cantidadOrden;
     cargaProductos(productoARR, cantidadProductos);
 
     //while loop condition variable
@@ -32,6 +34,7 @@ int main(void)
         cout << "a) Mostrar productos" << endl;
         cout << "b) Reaprovisionar productos" << endl;
         cout << "c) Agregar orden" << endl;
+        cout << "d) Ver ordenes" << endl;
         cout << "t) Terminar programa" << endl;
         cout << "--> ";
         cin >> opcion;
@@ -46,12 +49,20 @@ int main(void)
                 break;
 
             case 'c':
-                agregarOrden(ordenARR, productoARR, cantidadProductos);
+                agregarOrden(ordenARR, productoARR, cantidadProductos, cantidadOrden);
                 break;
 
+	    case 'd':
+		muestraOrdenes(ordenARR, productoARR, cantidadProductos, cantidadOrden);
+		break;
+		
             case 't':
                 run = false;
                 break;
+
+	    default:
+		cout << "Favor de ingresar un valor valido" << endl;
+		break;
         }
         
         //restock(productoARR, cantidadProductos);
@@ -114,7 +125,7 @@ int buscaProducto(Producto productosARR[], int productCount)
             cout << productosARR[i].getNombre() << endl;
         }
 
-        cout << "¿Favor de ingresar nombre de producto:?" << endl;
+        cout << "Favor de ingresar nombre de producto:" << endl;
         cout << "--> ";
         cin >> producto;
 
@@ -149,11 +160,18 @@ void restock(Producto productosARR[], int productCount)
     cout << "¡Movimiento Exitoso!";
 }
 
-void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount) 
+void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, int &orderCount) 
 {
     int cantidad;
     int posicionProducto;
 
+    string nombre;
+    string direccion;
+    string colonia;
+    string municipio;
+    int dd;
+    int mm;
+    int aaaa;
 
     posicionProducto = buscaProducto(productosARR, productCount);
 
@@ -161,7 +179,59 @@ void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount)
     cout << "--> ";
     cin >> cantidad;
 
-    productosARR[posicionProducto].subCantidad(cantidad);
+    bool revisar = productosARR[posicionProducto].subCantidad(cantidad);
+
+    if (revisar == false)
+	{
+	    return;
+	}	
+
+    //int tamano = sizeof(ordenARR) / sizeof(ordenARR[0])
+
+    cout << "Nombre del cliente: ";
+    cin >> nombre;
+    ordenARR[orderCount].setNombre(nombre);
+    cout << "Dirección: ";
+    cin >> direccion;
+    ordenARR[orderCount].setDireccion(direccion);
+    cout << "Colonia: ";
+    cin >> colonia;
+    ordenARR[orderCount].setColonia(colonia);
+    cout << "Municipio: ";
+    cin >> municipio;
+    ordenARR[orderCount].setColonia(municipio);
+    cout << "Día en el que se ordenó el producto: ";
+    cin >> dd;
+    cout << "Mes en el que se ordenó el producto: ";
+    cin >> mm;
+    cout << "Año en el que se ordenó el producto: ";
+    cin >> aaaa;
+
+    Fecha nFecha(dd,mm,aaaa); //DUda AFA
+    ordenARR[orderCount].setFecha(nFecha);
+
+    
+    Producto nProducto;
+    ordenARR[orderCount].setProducto(productosARR[posicionProducto]);
+    
+    orderCount++;
+
+    cout << "¡Movimiento Exitoso!" << endl;
+}
+
+void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount, int orderCount)
+{
+    if (orderCount - 1 == -1)
+    {
+	   cout << "No hay ninguna orden registrada en el sistema." << endl;
+	   return;
+    }
+    
+    for(int i = 0; i < orderCount; i++)
+    {
+           cout << "ORDEN " << i+1 << endl;
+	   cout << ordenARR[i].getProducto().getNombre() << endl;       
+    } 
 
 }
 

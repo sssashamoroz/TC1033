@@ -27,8 +27,7 @@ class Producto
 
         //otros
         void addCantidad(int nCantidad);
-        bool checkDisponibilidad(int nCantidad);
-        void subCantidad(int nCantidad);
+        bool subCantidad(int nCantidad);
 
     private:
         string nombre;
@@ -130,27 +129,17 @@ void Producto::addCantidad(int nCantidad)
     cantidad += nCantidad;
 }
 
-bool Producto::checkDisponibilidad(int nCantidad)
+bool Producto::subCantidad(int nCantidad)
 {
-    if (nCantidad <= cantidad)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-void Producto::subCantidad(int nCantidad)
-{
-    if(checkDisponibilidad(nCantidad) == true)
+    if(nCantidad <= cantidad)
     {
         cantidad -= nCantidad;
+	return true;
     }
     else
     {
-       cout << "El numero excede cantidad disponible. Solo hay" << cantidad << " disponbile." << endl; 
+       cout << "El numero excede cantidad disponible. Solo hay " << cantidad << " disponbile." << endl;
+	return false; 
     }
     
 }
