@@ -1,3 +1,9 @@
+/*
+Main desarollado por ambos:
+Aleksandr Morozov A00824394
+Andrés Fuentes A01177466
+*/
+
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -5,12 +11,12 @@ using namespace std;
 #include "Orden.h"
 
 //funciones del programa
-void cargaProductos(Producto productosARR[], int &productCount);
-void muestraProductos(Producto productosARR[], int productCount);
-void restock(Producto productosARR[], int productCount);
-void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, int &orderCount);
-int buscaProducto(Producto productosARR, int productCount);
-void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount, int orderCount);
+void cargaProductos(Producto productosARR[], int &productCount);  // Aleksandr Morozov A00824394
+void muestraProductos(Producto productosARR[], int productCount); // Aleksadnr Morozov A00824394
+void restock(Producto productosARR[], int productCount);  //Andrés Fuentes A01177466
+void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, int &orderCount); //Realizando por ambos
+int buscaProducto(Producto productosARR, int productCount); //Andrés Fuentes A01177466
+void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount, int orderCount); //Realizando por ambos
 
 int main(void)
 {
@@ -25,14 +31,16 @@ int main(void)
     bool run;
     run = true;
 
+    cout << "************************" << endl; 
     cout << "BIENVENIDO A BEBIDAS.COM" << endl;
-    cout << "*************************" << endl; 
+    cout << "************************" << endl; 
+    cout << endl;
 
     while (run)
     {
         cout << "Seleccione de la siguiente lista: " << endl;
         cout << "a) Mostrar productos" << endl;
-        cout << "b) Reaprovisionar productos" << endl;
+        cout << "b) Cargar productos" << endl;
         cout << "c) Agregar orden" << endl;
         cout << "d) Ver ordenes" << endl;
         cout << "t) Terminar programa" << endl;
@@ -41,32 +49,42 @@ int main(void)
         switch(opcion)
         {
             case 'a':
+                cout << endl;
                 muestraProductos(productoARR, cantidadProductos);
                 break;
 
             case 'b':
+                cout << endl;
                 restock(productoARR, cantidadProductos);
                 break;
 
             case 'c':
+                cout << endl;
                 agregarOrden(ordenARR, productoARR, cantidadProductos, cantidadOrden);
                 break;
 
-	    case 'd':
-		muestraOrdenes(ordenARR, productoARR, cantidadProductos, cantidadOrden);
-		break;
+            case 'd':
+                cout << endl;
+                muestraOrdenes(ordenARR, productoARR, cantidadProductos, cantidadOrden);
+                break;
 		
             case 't':
+                cout << endl;
+                cout << "***** SESSIÓN TERMINADA *****" << endl;
+                cout << endl;
                 run = false;
                 break;
 
-	    default:
-		cout << "Favor de ingresar un valor valido" << endl;
-		break;
+            default:
+                cout << endl;
+                cout << "***** Favor de ingresar un valor valido: *****" << endl;
+                cout << endl;
+                break;
         }
         
-        //restock(productoARR, cantidadProductos);
     }
+
+    // Successful return
     return 0;
 };
 
@@ -139,7 +157,9 @@ int buscaProducto(Producto productosARR[], int productCount)
             }
             else if (productCount == i+1)
             {
-                cout << "No hay un producto que se llame: " << producto << ". Favor de ingresar el nombre exacto.";
+                cout << endl;
+                cout << "***** No hay un producto que se llame: " << producto << ". Favor de ingresar el nombre exacto. *****";
+                cout << endl;
             }
         }
     }
@@ -153,11 +173,13 @@ void restock(Producto productosARR[], int productCount)
     int posicionProducto;
     posicionProducto = buscaProducto(productosARR, productCount);
 
-    cout << "¿Cuántos productos quieres agregar a: " << productosARR[posicionProducto].getNombre() << "?" << endl;
+    cout << "¿Cuántos productos quieres agregar al invertario de:  " << productosARR[posicionProducto].getNombre() << "?" << endl;
     cout << "--> ";
     cin >> cantidad;
     productosARR[posicionProducto].addCantidad(cantidad);
-    cout << "¡Movimiento Exitoso!";
+    cout << endl;
+    cout << "***** ¡Movimiento Exitoso! *****"<< endl;
+    cout << endl;
 }
 
 void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, int &orderCount) 
@@ -183,7 +205,7 @@ void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, i
 
     if (revisar == false)
 	{
-	    return;
+        return;
 	}	
 
     //int tamano = sizeof(ordenARR) / sizeof(ordenARR[0])
@@ -215,7 +237,6 @@ void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, i
     ordenARR[orderCount].setProducto(productosARR[posicionProducto]);
     
     orderCount++;
-
     cout << "¡Movimiento Exitoso!" << endl;
 }
 
@@ -223,14 +244,16 @@ void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount,
 {
     if (orderCount - 1 == -1)
     {
-	   cout << "No hay ninguna orden registrada en el sistema." << endl;
-	   return;
+        cout << endl;
+        cout << "***** No hay ninguna orden registrada en el sistema. *****" << endl;
+        cout << endl;
+        return;
     }
     
     for(int i = 0; i < orderCount; i++)
-    {
-           cout << "ORDEN " << i+1 << endl;
-	   cout << ordenARR[i].getProducto().getNombre() << endl;       
+    {  
+        cout << "ORDEN #" << i+1 << endl;
+        cout << ordenARR[i].getProducto().getNombre() << endl;       
     } 
 
 }

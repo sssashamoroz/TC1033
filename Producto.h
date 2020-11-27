@@ -1,3 +1,8 @@
+/*
+Clase hecha por:
+Aleksandr Morozov A00824394
+*/
+
 #include <iostream>
 using namespace std;
 
@@ -134,12 +139,14 @@ bool Producto::subCantidad(int nCantidad)
     if(nCantidad <= cantidad)
     {
         cantidad -= nCantidad;
-	return true;
+	    return true;
     }
     else
     {
-       cout << "El numero excede cantidad disponible. Solo hay " << cantidad << " disponbile." << endl;
-	return false; 
+        cout << endl;
+        cout << "***** El numero excede cantidad disponible. Solo hay " << cantidad << " disponbile. *****" << endl;
+        cout << endl;
+        return false; 
     }
     
 }

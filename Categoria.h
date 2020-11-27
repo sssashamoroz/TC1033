@@ -1,3 +1,8 @@
+/*
+Clase hecha por:
+Aleksandr Morozov A00824394
+*/
+
 #include <iostream>
 using namespace std;
 
