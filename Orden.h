@@ -14,7 +14,7 @@ class Orden
     public:
         //Constructores
         Orden();
-        Orden(Producto nProducto, Fecha nFecha, string nNombre, string nDireccion, string nColonia, string nMunicipio);
+        Orden(Producto nProducto, Fecha nFecha, string nNombre, string nDireccion, string nColonia, string nMunicipio, int nCantidad);
 
         //getters
         Producto getProducto();
@@ -23,6 +23,7 @@ class Orden
         string getDireccion();
         string getColonia();
         string getMunicipio();
+        int getCantidad();
 
         //setters
         void setProducto(Producto nProducto);
@@ -31,6 +32,7 @@ class Orden
         void setDireccion(string nDireccion);
         void setColonia(string nColonia);
         void setMunicipio(string nMunicipio);
+        void setCantidad(int nCantidad);
 
     private:
         Producto producto;
@@ -39,6 +41,7 @@ class Orden
         string direccion;
         string colonia;
         string municipio;
+        int cantidad;
 };
 
 //Constructores
@@ -52,9 +55,10 @@ Orden::Orden()
     direccion = "N/A";
     colonia = "N/A";
     municipio = "N/A";
+    cantidad = 0;
 }
 
-Orden::Orden(Producto nProducto, Fecha nFecha, string nNombre, string nDireccion, string nColonia, string nMunicipio)
+Orden::Orden(Producto nProducto, Fecha nFecha, string nNombre, string nDireccion, string nColonia, string nMunicipio, int nCantidad)
 {
     producto = nProducto;
     fecha = nFecha;
@@ -62,6 +66,7 @@ Orden::Orden(Producto nProducto, Fecha nFecha, string nNombre, string nDireccion
     direccion = nDireccion;
     colonia = nColonia;
     municipio = nMunicipio;
+    cantidad = nCantidad;
 }
 
 //Getters
@@ -95,6 +100,10 @@ string Orden::getMunicipio()
     return municipio;
 }
 
+int Orden::getCantidad()
+{
+    return cantidad;
+}
 
 //Setters
 void Orden::setProducto(Producto nProducto)
@@ -125,6 +134,11 @@ void Orden::setColonia(string nColonia)
 void Orden::setMunicipio(string nMunicipio)
 {
     municipio = nMunicipio;
+}
+
+void Orden::setCantidad(int nCantidad)
+{
+    cantidad = nCantidad;
 }
 
 #endif // ORDEN_H

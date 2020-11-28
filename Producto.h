@@ -136,17 +136,18 @@ void Producto::addCantidad(int nCantidad)
 
 bool Producto::subCantidad(int nCantidad)
 {
-    if(nCantidad <= cantidad)
-    {
-        cantidad -= nCantidad;
-	    return true;
-    }
-    else
-    {
-        cout << endl;
-        cout << "***** El numero excede cantidad disponible. Solo hay " << cantidad << " disponbile. *****" << endl;
-        cout << endl;
-        return false; 
-    }
+
+        if(nCantidad <= cantidad)
+        {
+            cantidad -= nCantidad;
+            return true;
+        }
+        else
+        {
+            cout << endl;
+            cout << "***** El numero excede cantidad disponible. Solo hay " << cantidad << " disponbile. *****" << endl;
+            cout << endl;
+            return false; 
+        }
     
 }

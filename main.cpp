@@ -24,9 +24,13 @@ int main(void)
     Producto productoARR[20];
     Orden ordenARR[20];
     int cantidadProductos;
-    int cantidadOrden;
+    int cantidadOrden = 0;
     cargaProductos(productoARR, cantidadProductos);
 
+    
+
+    
+ 
     //while loop condition variable
     bool run;
     run = true;
@@ -60,6 +64,7 @@ int main(void)
 
             case 'c':
                 cout << endl;
+                
                 agregarOrden(ordenARR, productoARR, cantidadProductos, cantidadOrden);
                 break;
 
@@ -196,10 +201,11 @@ void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, i
     int aaaa;
 
     posicionProducto = buscaProducto(productosARR, productCount);
-
+    
     cout << "¿Cuántos " << productosARR[posicionProducto].getNombre() << " se ordenaron?" << endl;
     cout << "--> ";
     cin >> cantidad;
+    cin.ignore();
 
     bool revisar = productosARR[posicionProducto].subCantidad(cantidad);
 
@@ -208,36 +214,42 @@ void agregarOrden(Orden ordenARR[], Producto productosARR[], int productCount, i
         return;
 	}	
 
-    //int tamano = sizeof(ordenARR) / sizeof(ordenARR[0])
+    ordenARR[orderCount].setCantidad(cantidad);
 
     cout << "Nombre del cliente: ";
-    cin >> nombre;
+    getline(cin,nombre);
     ordenARR[orderCount].setNombre(nombre);
+
     cout << "Dirección: ";
-    cin >> direccion;
+    getline(cin,direccion);
     ordenARR[orderCount].setDireccion(direccion);
     cout << "Colonia: ";
-    cin >> colonia;
+    getline(cin,colonia);
     ordenARR[orderCount].setColonia(colonia);
     cout << "Municipio: ";
-    cin >> municipio;
-    ordenARR[orderCount].setColonia(municipio);
+    getline(cin,municipio);
+    ordenARR[orderCount].setMunicipio(municipio);
     cout << "Día en el que se ordenó el producto: ";
     cin >> dd;
+    cin.ignore();
     cout << "Mes en el que se ordenó el producto: ";
     cin >> mm;
     cout << "Año en el que se ordenó el producto: ";
     cin >> aaaa;
 
-    Fecha nFecha(dd,mm,aaaa); //DUda AFA
+    Fecha nFecha(dd,mm,aaaa);
+    cout<<orderCount<<endl; 
     ordenARR[orderCount].setFecha(nFecha);
-
     
+  
     Producto nProducto;
     ordenARR[orderCount].setProducto(productosARR[posicionProducto]);
     
+
     orderCount++;
-    cout << "¡Movimiento Exitoso!" << endl;
+    cout << endl;
+    cout << "***** ¡Movimiento Exitoso! *****" << endl;
+    cout << endl;
 }
 
 void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount, int orderCount)
@@ -253,7 +265,12 @@ void muestraOrdenes(Orden ordenARR[], Producto productosARR[], int productCount,
     for(int i = 0; i < orderCount; i++)
     {  
         cout << "ORDEN #" << i+1 << endl;
-        cout << ordenARR[i].getProducto().getNombre() << endl;       
+        cout << "Nombre del cliente: " << ordenARR[i].getNombre() << " || " << "Producto ordenado: " << ordenARR[i].getProducto().getNombre() << " || Cantidad: " << ordenARR[i].getCantidad() << endl;
+        cout << "Dirección del cliente: " << endl;
+        cout << ordenARR[i].getDireccion() << ", " << ordenARR[i].getColonia() << ", " << ordenARR[i].getMunicipio() << endl;
+        ordenARR[i].getFecha().imprime();
+        cout << endl;
+            
     } 
 
 }
